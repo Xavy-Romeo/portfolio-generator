@@ -29,8 +29,8 @@ const promptUser = () => {
         },
         {
             type: 'input',
-            name: 'GitHub username',
-            message: 'Enter your GitHub Username',
+            name: 'gitHubUsername',
+            message: 'Enter your GitHub username: (Required)',
             validate: usernameInput => {
                 if (usernameInput) {
                     return true;
@@ -62,7 +62,7 @@ const promptProject = portfolioData => {
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'Project name',
+            name: 'projectName',
             message: 'What is the name of your project? (Required)',
             validate: projectNameInput => {
                 if (projectNameInput) {
@@ -76,7 +76,7 @@ const promptProject = portfolioData => {
         },
         {
             type: 'input',
-            name: 'Project description',
+            name: 'projectDescription',
             message: 'Provide a description for the project. (Required)',
             validate: projectDescription => {
                 if (projectDescription) {
@@ -96,7 +96,7 @@ const promptProject = portfolioData => {
         },
         {
             type: 'input',
-            name: 'Project GitHub link',
+            name: 'projectGitHubLink',
             message: 'Enter the GitHub link to your project. (Required)',
             validate: githubLink => {
                 if (githubLink) {
@@ -119,6 +119,25 @@ const promptProject = portfolioData => {
             name: 'confirmAddProject',
             message: 'Would you like to enter another project?',
             default: false
+        },
+        {
+            type: 'confirm',
+            name: 'confirmAbout',
+            message: 'Would you like to enter some information about yourself for an "About" section?',
+            default: true
+        },
+        {
+            type: 'input',
+            name: 'about',
+            message: 'Provide some information about yourself:',
+            when: ({confirmAbout}) => {
+                if (confirmAbout) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
         }
     ])
     .then(projectData => {
